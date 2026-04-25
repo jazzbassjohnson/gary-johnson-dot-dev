@@ -1,26 +1,215 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* Typography */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-pixel: "Press Start 2P", monospace;
+
+  /* Bold & Creative Color System */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+
+  /* Section Colors */
+  --color-music: var(--music);
+  --color-software: var(--software);
+  --color-operations: var(--operations);
+  --color-games: var(--games);
+
+  /* Border Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  /* Base - Dark theme for bold aesthetic */
+  --background: oklch(0.12 0.02 280);
+  --foreground: oklch(0.98 0.01 90);
+
+  /* Primary - Electric magenta/pink */
+  --primary: oklch(0.70 0.28 330);
+  --primary-foreground: oklch(0.98 0 0);
+
+  /* Secondary - Vibrant cyan */
+  --secondary: oklch(0.75 0.18 195);
+  --secondary-foreground: oklch(0.15 0.02 280);
+
+  /* Accent - Bold yellow-green */
+  --accent: oklch(0.85 0.22 105);
+  --accent-foreground: oklch(0.15 0.02 280);
+
+  /* Section Colors */
+  --music: oklch(0.65 0.25 300);
+  --software: oklch(0.70 0.20 170);
+  --operations: oklch(0.72 0.18 145);
+  --games: oklch(0.78 0.22 60);
+
+  /* Utility */
+  --muted: oklch(0.25 0.02 280);
+  --muted-foreground: oklch(0.65 0.02 280);
+  --border: oklch(0.30 0.04 280);
+  --card: oklch(0.18 0.03 280);
+  --card-foreground: oklch(0.98 0.01 90);
+}
+
+/* Retro arcade theme for games section */
+.theme-arcade {
+  --background: oklch(0.08 0 0);
+  --foreground: oklch(0.95 0.15 120);
+  --primary: oklch(0.85 0.25 60);
+  --accent: oklch(0.90 0.20 90);
+  --card: oklch(0.12 0 0);
+  --border: oklch(0.25 0.15 120);
+}
+
+* {
+  border-color: var(--border);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+/* Pixel-perfect rendering for games */
+.pixel-perfect {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* CRT scanline effect for games */
+.scanlines {
+  position: relative;
+}
+
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+}
+
+/* Glow effect for neon elements */
+.glow {
+  text-shadow:
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 40px currentColor;
+}
+
+.glow-box {
+  box-shadow:
+    0 0 10px currentColor,
+    0 0 20px currentColor;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animation utilities */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.8;
+  }
+  94% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0.9;
+  }
+  97% {
+    opacity: 1;
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-flicker {
+  animation: flicker 4s linear infinite;
 }
